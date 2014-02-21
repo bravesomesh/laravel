@@ -1,0 +1,119 @@
+step-1 install Composer-setup.exe from https://getcomposer.org/download
+step-2 run the setup and give php.exe location usually on xampp server it is c:/xampp/php
+step-3 enable openssl in php.ini file. If it is not there then add this line to dynamic section
+
+    extension=php_openssl.dll
+
+step-4 create new laravel-app folder in htdocs folder
+step-5 open your cmd and go to htdocs/laravel-app folder location
+step-6 type this command
+
+    composer create-project laravel/laravel laravel-app --prefer-dist
+
+step-7 install sublime text editor
+step-8 open sublime editor 
+step-9 select open folder in file menu
+step-10 open project folder in our case it is laravel-app
+step-11 open database.php file in app/config folder
+step-12 change the value of database,username and password value of mysql section according to your phpmyadmin section database values
+step-13 go to project path in cmd
+step-14 type this command for creating table migration
+
+     php artisan migrate:make employee
+
+step-15 open created file in app/database/migrations and add this content
+
+
+<?php
+
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateEmployee extends Migration {
+
+	/**
+	 * Run the migrations.
+	 *
+	 * @return void
+	 */
+	public function up()
+	{
+		Schema::create('employee', function($table){
+			$table->increments('id');
+			$table->string('name');
+			$table->text('bio');
+			$table->timestamps();
+		});
+	}
+
+	/**
+	 * Reverse the migrations.
+	 *
+	 * @return void
+	 */
+	public function down()
+	{
+		Schema::drop('employee');
+	}
+
+}
+
+
+
+step-16 run this command to execute migration
+
+     php artisan migrate
+
+step-17 create migration for adding data to table
+
+     php artisan migrate:make add_employee
+
+step-18 open create file in app/database/migrations and add this content
+
+
+
+<?php
+
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class AddEmployee extends Migration {
+
+	/**
+	 * Run the migrations.
+	 *
+	 * @return void
+	 */
+	public function up()
+	{
+		DB::table('employee')->insert(array(
+			'name'=>'Somesh vyas',
+			'bio'=>'somesh vyas is great',
+			'created_at'=>date('Y-m-d H:m:s'),
+			'updated_at'=>date('Y-m-d H:m:s')
+			));
+	}
+
+	/**
+	 * Reverse the migrations.
+	 *
+	 * @return void
+	 */
+	public function down()
+	{
+		DB::table('employee')->where('name','=','Somesh Vyas')->delete();
+	}
+
+}
+
+
+
+
+
+step-19 run this command
+
+     php artisan migrate
+
+
+
+step-20 added data to the database
