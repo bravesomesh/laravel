@@ -29,7 +29,7 @@ step-15 open created file in app/database/migrations and add this content
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEmployee extends Migration {
+class Employee extends Migration {
 
 	/**
 	 * Run the migrations.
